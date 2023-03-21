@@ -34,7 +34,7 @@ class MyTab2RecyclerViewAdapter(
     inner class ViewHolder(binding: FragmentTab2Binding) : RecyclerView.ViewHolder(binding.root) {
         val idView: TextView = binding.itemNumber
         val contentView: TextView = binding.content
-                
+
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"
         }

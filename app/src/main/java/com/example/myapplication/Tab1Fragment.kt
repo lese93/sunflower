@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.myapplication.placeholder.PlaceholderContent
 
-class Tab1Fragment : Fragment() {
+class Tab1Fragment : Fragment(), Added {
 
     private var columnCount = 2
 
@@ -35,7 +36,7 @@ class Tab1Fragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyTab1RecyclerViewAdapter(PlaceholderContent.ITEMS)
+                adapter = MyTab1RecyclerViewAdapter(PlaceholderContent.myGardenList, this@Tab1Fragment)
             }
         }
         return view
@@ -51,5 +52,9 @@ class Tab1Fragment : Fragment() {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
             }
+    }
+
+    override fun onAdded() {
+        Log.e("Added", "onAdded")
     }
 }

@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainViewpager.adapter = ViewPagerAdapter(this)
 
         init()
-        setEvents()
+        setupEvents()
     }
 
     private fun init(){
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding.line2.setBackgroundColor(ContextCompat.getColor(this, R.color.green_2))
     }
 
-    private fun setEvents(){
+    private fun setupEvents(){
         binding.tab1.setOnClickListener {
             setFragment(0)
 

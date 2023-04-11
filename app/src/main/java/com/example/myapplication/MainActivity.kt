@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 "Apple",
                 "Avocado",
                 "Beet",
-                "Bougaivillea",
+                "Bougainvillea",
                 "Cilantro",
                 "Eggplant"
             )
@@ -55,13 +55,13 @@ class MainActivity : AppCompatActivity() {
                 val unsplashResp = unsplashAPI.searchPhotos(plant, page, perPage)
                 val imageURL = unsplashResp.results[0].urls.small
                 val description = unsplashResp.results[0].description
-                val plant = Plant(
+                val plantObject = Plant(
                     imageURL,
                     plant,
                     Random.nextInt(1, 11),
                     description
                 )
-                PlaceholderContent.plantList.add(plant)
+                PlaceholderContent.plantList.add(plantObject)
             }
         }
     }

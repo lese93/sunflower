@@ -1,9 +1,11 @@
-package com.example.myapplication
+package com.example.myapplication.adapters
 
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.example.myapplication.Added
+import com.example.myapplication.PlantListViewHolder
 import com.example.myapplication.data.Plant
 import com.example.myapplication.databinding.FragmentPlantlistBinding
 

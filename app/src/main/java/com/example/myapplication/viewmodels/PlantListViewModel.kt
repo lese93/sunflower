@@ -1,11 +1,11 @@
-package com.example.myapplication
+package com.example.myapplication.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.api.UnsplashAPI
 import com.example.myapplication.data.Plant
+import com.example.myapplication.notifyObserver
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -14,10 +14,9 @@ class PlantListViewModel : ViewModel() {
     // Plant list에서 Mygarden으로 추가하는 역할
 
     val plantData = mutableListOf<Plant>()
-    val liveData : MutableLiveData<List<Plant>> = MutableLiveData(plantData)
+    val liveData: MutableLiveData<List<Plant>> = MutableLiveData(plantData)
 
-
-    fun loadPlants() {
+    fun loadPlantsData() {
         viewModelScope.launch {
             val unsplashAPI = UnsplashAPI.create()
 
@@ -37,7 +36,7 @@ class PlantListViewModel : ViewModel() {
 
                 /// result = null
                 /// result = []
-                if(unsplashResp.results.isNotEmpty()) {
+                if (unsplashResp.results.isNotEmpty()) {
                     val imageURL = unsplashResp.results[0].urls.small
                     val description = unsplashResp.results[0].description
 
@@ -50,6 +49,7 @@ class PlantListViewModel : ViewModel() {
                     plantData.add(newPlant)
                 }
             }
+
             liveData.notifyObserver()
         }
     }

@@ -1,10 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.adapters
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
-import com.example.myapplication.api.UnsplashAPI
+import com.example.myapplication.MyGardenViewHolder
 import com.example.myapplication.data.Plant
 import com.example.myapplication.databinding.FragmentMygardenBinding
 

@@ -4,16 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.placeholder.PlaceholderContent
+import com.example.myapplication.adapters.MyGardenRecyclerViewAdapter
+import com.example.myapplication.viewmodels.MyGardenViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MyGardenFragment : Fragment() {
 
     var recyclerView : View? = null
+
+    private val viewModel by viewModels<MyGardenViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -29,7 +35,7 @@ class MyGardenFragment : Fragment() {
             if (it is RecyclerView) {
                 with(it) {
                     layoutManager = GridLayoutManager(context, 2)
-                    adapter = MyGardenRecyclerViewAdapter(PlaceholderContent.myGardenList)
+                    adapter = MyGardenRecyclerViewAdapter(viewModel.loadMyGardenData())
                 }
             }
         }

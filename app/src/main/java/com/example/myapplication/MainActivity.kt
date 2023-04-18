@@ -4,14 +4,18 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import com.example.myapplication.adapters.ViewPagerAdapter
 import com.example.myapplication.api.UnsplashAPI
 import com.example.myapplication.data.Plant
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.placeholder.PlaceholderContent
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
@@ -59,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     imageURL,
                     plant,
                     Random.nextInt(1, 11),
-                    description
+                    description ?: ""
                 )
                 PlaceholderContent.plantList.add(plantObject)
             }

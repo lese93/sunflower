@@ -15,13 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class InformationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInformationBinding
     private val viewModel by viewModels<InformationViewModel>()
-    private val plantList = viewModel.get()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val plantList = viewModel.getPlantList()
         val position = intent.getIntExtra("position", -1)
 
         Glide.with(this).load(plantList[position].imageUrl).into(binding.image)
@@ -31,7 +31,7 @@ class InformationActivity : AppCompatActivity() {
             finish()
         }
         binding.btnAdd.setOnClickListener{
-            viewModel.addPlant(plantList[position])
+            viewModel.addMyGardenPlant(plantList[position])
             Toast.makeText(this, "${plantList[position].name} 추가되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }

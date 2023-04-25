@@ -1,14 +1,9 @@
 package com.example.myapplication.data;
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
-
-import java.util.List;
+import androidx.room.*
 
 @Dao
-interface PlantDao {
+interface PlantDAO {
 
     @Delete
     fun delete(plant: Plant)
@@ -18,4 +13,7 @@ interface PlantDao {
 
     @Query("SELECT * FROM plant WHERE name = :plantName")
     fun getPlantByName(plantName: String): List<Plant>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(plant: Plant)
 }

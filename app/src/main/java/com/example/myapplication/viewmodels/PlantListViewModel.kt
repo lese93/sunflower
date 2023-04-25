@@ -1,20 +1,23 @@
 package com.example.myapplication.viewmodels
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.PlantListRepository
 import com.example.myapplication.api.UnsplashAPI
 import com.example.myapplication.data.Plant
 import com.example.myapplication.notifyObserver
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.random.Random
 
-class PlantListViewModel : ViewModel() {
+@HiltViewModel
+class PlantListViewModel @Inject constructor(
+    private val plantListRepository: PlantListRepository
+) : ViewModel() {
     // Plant List를 불러오는 역할
     // Plant list에서 Mygarden으로 추가하는 역할
-
-    val plantData = mutableListOf<Plant>()
-    val liveData: MutableLiveData<List<Plant>> = MutableLiveData(plantData)
+    val liveData = plantListRepository.liveData
 
     fun loadPlantsData() {
         viewModelScope.launch {
@@ -46,11 +49,11 @@ class PlantListViewModel : ViewModel() {
                         Random.nextInt(1, 11),
                         description ?: ""
                     )
-                    plantData.add(newPlant)
+                    plantListRepository.addPlantData(newPlant)
                 }
             }
 
-            liveData.notifyObserver()
+            plantListRepository.liveData.notifyObserver()
         }
     }
 

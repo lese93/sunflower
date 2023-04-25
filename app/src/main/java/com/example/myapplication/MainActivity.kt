@@ -9,6 +9,7 @@ import com.example.myapplication.api.UnsplashAPI
 import com.example.myapplication.data.Plant
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.placeholder.PlaceholderContent
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,18 +26,19 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.mainViewpager.adapter = ViewPagerAdapter(this)
 
+        binding.mainViewpager.adapter = ViewPagerAdapter(this)
+        TabLayoutMediator(binding.tabLayout, binding.mainViewpager) { tab, position ->
+            if(position == 0) {
+                tab.text = "MyGarden"
+            } else {
+                tab.text = "PlantList"
+            }
+        }.attach()
         init()
-        setupEvents()
     }
 
     private fun init() {
-        setFragment(0)
-        binding.tab1Txt.setTextColor(ContextCompat.getColor(this, R.color.yellow_1))
-        binding.tab2Txt.setTextColor(ContextCompat.getColor(this, R.color.green_3))
-        binding.line1.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-        binding.line2.setBackgroundColor(ContextCompat.getColor(this, R.color.green_2))
         addPlants()
     }
 
@@ -71,35 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun setupEvents() {
-        binding.tab1.setOnClickListener {
-            setFragment(0)
-
-            binding.tab1Txt.setTextColor(ContextCompat.getColor(this, R.color.yellow_1))
-            binding.tab2Txt.setTextColor(ContextCompat.getColor(this, R.color.green_3))
-            binding.line1.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-            binding.line2.setBackgroundColor(ContextCompat.getColor(this, R.color.green_2))
-        }
-
-        binding.tab2.setOnClickListener {
-            setFragment(1)
-            binding.tab1Txt.setTextColor(ContextCompat.getColor(this, R.color.green_3))
-            binding.tab2Txt.setTextColor(ContextCompat.getColor(this, R.color.yellow_1))
-            binding.line1.setBackgroundColor(ContextCompat.getColor(this, R.color.green_2))
-            binding.line2.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-        }
 
 
-    }
 
-    private fun setFragment(fragmentNum: Int) {
-        when (fragmentNum) {
-            0 -> {
-                binding.mainViewpager.currentItem = 0
-            }
-            1 -> {
-                binding.mainViewpager.currentItem = 1
-            }
-        }
-    }
 }

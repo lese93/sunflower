@@ -22,7 +22,7 @@ object Module {
             .databaseBuilder(
                 context,
                 AppDatabase::class.java,
-               "plant.db")
+                "plant.db")
             .build()
     }
 

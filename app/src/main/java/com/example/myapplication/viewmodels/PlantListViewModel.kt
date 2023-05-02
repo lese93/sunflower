@@ -1,5 +1,6 @@
 package com.example.myapplication.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.PlantListRepository
@@ -18,8 +19,8 @@ class PlantListViewModel @Inject constructor(
     // Plant List를 불러오는 역할
     // Plant list에서 Mygarden으로 추가하는 역할
     val liveData = plantListRepository.liveData
-
     fun loadPlantsData() {
+        Log.e("PlantListViewModel", "loadPlantsData" )
         viewModelScope.launch {
             val unsplashAPI = UnsplashAPI.create()
 
@@ -35,23 +36,27 @@ class PlantListViewModel @Inject constructor(
             )
 
             for (plant in plantList) {
-                val unsplashResp = unsplashAPI.searchPhotos(plant, page, perPage)
+                val existingPlant = plantListRepository.getPlantByName(plant)
+                if (existingPlant.isEmpty()) {
+                    val unsplashResp = unsplashAPI.searchPhotos(plant, page, perPage)
 
-                /// result = null
-                /// result = []
-                if (unsplashResp.results.isNotEmpty()) {
-                    val imageURL = unsplashResp.results[0].urls.small
-                    val description = unsplashResp.results[0].description
+                    if (unsplashResp.results.isNotEmpty()) {
+                        val imageURL = unsplashResp.results[0].urls.small
+                        val description = unsplashResp.results[0].description
 
-                    val newPlant = Plant(
-                        imageURL,
-                        plant,
-                        Random.nextInt(1, 11),
-                        description ?: ""
-                    )
-                    plantListRepository.addPlantData(newPlant)
+                        val newPlant = Plant(
+                            imageUrl = imageURL,
+                            name = plant,
+                            wateringFrequency = Random.nextInt(1, 11),
+                            description = description ?: "",
+                            favorite = 0
+                        )
+                        Log.e("PlantListViewModel", "loadPlantsData $newPlant" )
+                        plantListRepository.addPlantData(newPlant)
+                    }
                 }
             }
+            plantListRepository.init()
 
             plantListRepository.liveData.notifyObserver()
         }

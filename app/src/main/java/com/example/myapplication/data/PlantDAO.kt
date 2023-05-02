@@ -16,4 +16,10 @@ interface PlantDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(plant: Plant)
+
+    @Query("UPDATE plant SET favorite = :isFavorite WHERE name = :plantName")
+    fun updateFavorite(plantName: String, isFavorite: Int)
+
+    @Query("SELECT * FROM plant WHERE favorite = 1")
+    fun getFavoritePlants(): List<Plant>
 }

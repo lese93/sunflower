@@ -7,14 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.data.Plant
 import com.example.myapplication.databinding.FragmentPlantlistBinding
-import com.example.myapplication.placeholder.PlaceholderContent
 
 class PlantListViewHolder(val binding: FragmentPlantlistBinding) : RecyclerView.ViewHolder(binding.root) {
     val imageView: ImageView = binding.image
     val plantNameView: TextView = binding.plantName
 
     fun bind(data: Plant, position: Int) {
-        Glide.with(binding.root).load(PlaceholderContent.plantList[position].imageUrl).into(imageView)
+        Glide.with(binding.root).load(data.imageUrl).into(imageView)
         plantNameView.text = data.name
         binding.root.setOnClickListener {
             val intent = Intent(it.context, InformationActivity::class.java)

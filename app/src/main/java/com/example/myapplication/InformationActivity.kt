@@ -21,9 +21,9 @@ class InformationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInformationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val plantList = viewModel.getPlantList()
-        val position = intent.getIntExtra("position", -1)
 
+        val position = intent.getIntExtra("position", -1)
+        val plantList = viewModel.getPlantList()
         Glide.with(this).load(plantList[position].imageUrl).into(binding.image)
         binding.name.text = plantList[position].name
         binding.desc.text = plantList[position].description

@@ -23,7 +23,6 @@ class PlantListViewModel @Inject constructor(
         Log.e("PlantListViewModel", "loadPlantsData" )
         viewModelScope.launch {
             val unsplashAPI = UnsplashAPI.create()
-
             val page = 1
             val perPage = 10
             val plantList = listOf(
